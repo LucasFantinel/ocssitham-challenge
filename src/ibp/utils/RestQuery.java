@@ -2,6 +2,7 @@ package ibp.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.CookieSpecs;
@@ -10,6 +11,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -61,10 +63,17 @@ public class RestQuery {
 		try {
 
 			HttpPost httpPost = new HttpPost(api);
-			List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-			nvps.add(new BasicNameValuePair("username", "vip"));
-			nvps.add(new BasicNameValuePair("password", "secret"));
-			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+			httpPost.setHeader("content-type", "application/json");
+			
+//			List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+//			nvps.add(new BasicNameValuePair("content-type", "application/json"));
+//			nvps.add(new BasicNameValuePair("cache-control", "no-cache"));
+//			nvps.add(new BasicNameValuePair("body", "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0ZWFtTmFtZSI6IkVxdWlwZSAyIiwic3ViIjoiQ0hBTExFTkdFIiwiYXVkIjoiaHR0cDpcL1wvd3d3Lm9jc3NpbW9yZS5uZXQiLCJuYmYiOjE1MTA2NTE1MzUsImlkIjoyLCJleHAiOjE1OTcwNDc5MzUsImp0aSI6IjEwMzgyMDQ5LTQ3MTQtNDY5Zi1iNTRjLWU5M2E4NDA3NmU5OCJ9.QMW_shT8s-G2xhNyt7TcnyI9BoCxSswW5P4dwqDJNR0GodZSrPABEIoTCNDUC65yWNAuFgamBXlV6u9XH6sD-HUtnPTmFAhcLt0Z3zy3eH3nU8gxFpH-IttFYDb-Tp08xO9li39c9QrEaqEERCrHC0sPHYF1WJXrpauDM9VqXnwEm3PVN3WCrXQCRW6aX15X7PAO7HFrPSOXsfTi_-QJ0RzsPGf415K4lb3FCZFGlUi13Sjhj3lWK3QXec8LwvrZ7YJl7Z9Cz6zEO6R32OGOz7c-Skb8NZH61kMnYoeBtOQJud9xnSI2f8LSw9NB3rsVuWBmfLUzJMC4q7TX09ytDw"));
+			
+			StringEntity xmlEntity = new StringEntity("\"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0ZWFtTmFtZSI6IkVxdWlwZSAyIiwic3ViIjoiQ0hBTExFTkdFIiwiYXVkIjoiaHR0cDpcL1wvd3d3Lm9jc3NpbW9yZS5uZXQiLCJuYmYiOjE1MTA2NTE1MzUsImlkIjoyLCJleHAiOjE1OTcwNDc5MzUsImp0aSI6IjEwMzgyMDQ5LTQ3MTQtNDY5Zi1iNTRjLWU5M2E4NDA3NmU5OCJ9.QMW_shT8s-G2xhNyt7TcnyI9BoCxSswW5P4dwqDJNR0GodZSrPABEIoTCNDUC65yWNAuFgamBXlV6u9XH6sD-HUtnPTmFAhcLt0Z3zy3eH3nU8gxFpH-IttFYDb-Tp08xO9li39c9QrEaqEERCrHC0sPHYF1WJXrpauDM9VqXnwEm3PVN3WCrXQCRW6aX15X7PAO7HFrPSOXsfTi_-QJ0RzsPGf415K4lb3FCZFGlUi13Sjhj3lWK3QXec8LwvrZ7YJl7Z9Cz6zEO6R32OGOz7c-Skb8NZH61kMnYoeBtOQJud9xnSI2f8LSw9NB3rsVuWBmfLUzJMC4q7TX09ytDw\"");
+			
+			httpPost.setEntity(xmlEntity );
+			
 			CloseableHttpResponse response2 = httpclient.execute(httpPost);
 	
 			try {
